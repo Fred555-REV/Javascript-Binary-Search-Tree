@@ -121,3 +121,7 @@ myFirstTree.add(15);
 //                              min                                                                                      
 
 console.log(myFirstTree.findData(25));
+console.log(myFirstTree.findMax());
+console.log(myFirstTree.findMin());
+console.log(myFirstTree.findData(19));
+console.log(myFirstTree.findData(5));
