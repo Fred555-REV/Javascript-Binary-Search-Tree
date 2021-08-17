@@ -52,5 +52,26 @@ class BST {
         }
     };
 
+    findMin(){ 
+        //goes through the tree from the top and because the lower values
+        //were put to the left node of the root and previous nodes
+        //all we need to do to find the minimum is search all the way to the left
+        let current = this.root;
+        while (current.left !== null) {
+            current = current.left;
+        }
+        return current.data;
+    }
+
+    findMax(){
+        //using the same logic as findMin but large numbers to the right
+        //meaning that the largest would be farthest to the right
+        let current = this.root;
+        while (current.right !== null) {
+            current = current.right;
+        }
+        return current.data;
+    }
+
 
 }
