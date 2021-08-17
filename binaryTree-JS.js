@@ -1,5 +1,5 @@
 class Node {
-    constructor (data, left = null, right = null) {
+    constructor(data, left = null, right = null) {
         this.data = data;
         this.left = left;
         this.right = right;
@@ -79,7 +79,6 @@ class BST {
         //trying without video
 
         let current = this.root;
-
         while (current.data !== data) {
             if (data < current.data) {
                 current = current.left;
@@ -91,10 +90,68 @@ class BST {
             }
         }
         return current;
-
-
     }
 
+    isPresent(data) {
+        let current = this.root;
+        while (current) {
+            if (data === current.data) {
+                return true;
+            }
+            if (data < current.data) {
+                current = current.left;
+            } else {
+                current - current.right;
+            }
+        }
+        return false;
+    }
+
+    removedata(data) {
+        const removeNode = function (node, data) {
+            if (node == null) {
+                return null;
+            }
+            if (data == node.data) {
+                //node has no children
+                if (node.left == null && node.right == null) {
+                    return null;
+                }
+
+                //node has no left children example if number 40
+                if (node.left == null) {
+                    return node.right;
+                }
+
+                //node has no right children example of number 12
+                if (node.right == null) {
+                    return node.left;
+                }
+
+                //node has two children example of number 14 
+                var tempNode = node.right;
+                while (tempNode.left !== null) {
+                    tempNode = tempNode.left;
+                }
+                node.data = tempNode.data;
+                node.right = removeNode(node.right, tempNode.data)
+                return node;
+            } else if (data < node.data) {
+                node.left = removeNode(node.left, data);
+                return node;
+            } else {
+                node.right = removeNode(node.right, data);
+                return node;
+            }
+            //(parenthesis is what will happen after removal)                            
+            //                            25             
+            //                14(15)/             \37                    
+            //             12(5)/     \19      29/     \40(69)                       
+            //          5(1)/ \(7)  15/(null)               \69(null)                     
+            // 1(null)/      \7(null)                          
+        }
+        this.root = removeNode(this.root, data);
+    }
 }
 
 var myFirstTree = new BST();
@@ -123,5 +180,7 @@ myFirstTree.add(15);
 console.log(myFirstTree.findData(25));
 console.log(myFirstTree.findMax());
 console.log(myFirstTree.findMin());
-console.log(myFirstTree.findData(19));
-console.log(myFirstTree.findData(5));
+myFirstTree.removedata(14);
+console.log(myFirstTree.findData(15));
+myFirstTree.removedata(12);
+console.log(myFirstTree.findData(15));
